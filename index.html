@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Date Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h2 style="margin-bottom: 10px; color: #ffff;">Date Converter</h2>
+    <div class="form-container">
+        <div>
+            <div class="input-container">
+                <div>
+                    <label>InputDate</label>
+                </div>
+                <div>
+                    <input type="text" id="inputDate" required placeholder="eg 21/03/2024">
+                </div>
+            </div>
+            <div class="input-container">
+                <div>
+                    <label>InputFormat </label>
+                </div>
+                <div>
+                    <input type="text" id="inputFormat" placeholder="e.g (DD/MM/YYYY)" required>
+                </div>
+            </div>
+            <div class="input-container" style="margin-bottom: 20px;">
+                <div>
+                    <label>ExpectedFormat</label>
+                </div>
+                <div>
+                    <input type="text" id="expectedFormat" placeholder=" e.g (MM/YYYY/DD)" required>
+                </div>
+            </div>
+            <div id="output"><span>Output:</span> <span id="outputdate"></span></div>
+        </div>
+    </div>
+    <button id="btn">Convert</button>
+    
+</div>
+
+<script >
+    function dateConverter() {
+   
+   var inputDate = document.getElementById('inputDate').value;
+   var inputFormat = document.getElementById('inputFormat').value;
+   var expectedFormat = document.getElementById('expectedFormat').value;
+
+   
+   var dateFormat = inputFormat.split('/');
+   var dayIndex = dateFormat.findIndex(element => element === 'DD');
+   var monthIndex = dateFormat.findIndex(element => element === 'MM');
+   var yearIndex = dateFormat.findIndex(element => element === 'YYYY');
+
+   var inputDateParts = inputDate.split('/');
+
+   console.log(dayIndex,monthIndex,yearIndex);
+   var outputFormat = expectedFormat.split('/');
+   var exdayIndex =  outputFormat.findIndex(element => element === 'DD');
+   var exmonthIndex =  outputFormat.findIndex(element => element === 'MM');
+   var exyearIndex =  outputFormat.findIndex(element => element === 'YYYY');
+   var outputDateParts = expectedFormat.split('/');
+   outputDateParts[exdayIndex] =inputDateParts[dayIndex].toString().padStart(2, '0');
+   outputDateParts[exmonthIndex] =inputDateParts[monthIndex].toString().padStart(2, '0');
+   outputDateParts[exyearIndex] =inputDateParts[yearIndex].toString();
+
+   var outputDate = outputDateParts.join('/');
+   
+   document.getElementById('outputdate').innerHTML = outputDate;
+}
+
+var btn  = document.getElementById("btn");
+btn.addEventListener("click",dateConverter);
+</script>
+</body>
+</html>
